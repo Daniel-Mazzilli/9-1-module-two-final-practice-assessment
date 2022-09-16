@@ -5,7 +5,6 @@ const getPeople = `/people`;
 // Variables
 let allPeopleData;
 let personIndex;
-let searchName;
 
 // DOM Elements
 const listPeople = document.querySelector(`#list`);
@@ -14,6 +13,11 @@ const infoSec = document.querySelector(`#info`);
 const form = document.querySelector(`form`);
 const inputShoutout = document.querySelector(`#shoutout`);
 const ul = document.querySelector(`ul`);
+
+// Error Message
+const error = document.createElement(`p`);
+error.classList.add(`message`);
+form.append(error);
 
 // Fetch
 fetch(baseURL + getPeople)
@@ -31,18 +35,18 @@ fetch(baseURL + getPeople)
 
 // Event Listeners
 selectedPerson.addEventListener(`change`, () => {
-  searchName = selectedPerson.value;
+  error.innerHTML = ``;
   infoSec.innerHTML = ``;
 
   const infoName = document.createElement(`h4`);
-  infoName.innerText = `Name: ` + searchName;
+  infoName.innerText = `Name: ` + selectedPerson.value;
 
   const pAge = document.createElement(`p`);
   const pEye = document.createElement(`p`);
   const pHair = document.createElement(`p`);
 
   allPeopleData.forEach((el) => {
-    if (el[`name`] === searchName) {
+    if (el[`name`] === selectedPerson.value) {
       pAge.innerText = `Age: ` + el[`age`];
       pEye.innerText = `Eye: ` + el[`eye_color`];
       pHair.innerText = `Hair: ` + el[`hair_color`];
@@ -54,9 +58,19 @@ selectedPerson.addEventListener(`change`, () => {
 
 form.addEventListener(`submit`, (event) => {
   event.preventDefault();
-  console.log(inputShoutout.value);
-  const shoutout = document.createElement(`li`);
-  shoutout.innerHTML = `<strong>${searchName}</strong>, ${inputShoutout.value}`;
-  ul.append(shoutout);
-  form.reset();
+  error.innerHTML = ``;
+  if (!selectedPerson.value) {
+    error.innerText = `Please Select a Person`;
+  } else if (!inputShoutout.value) {
+    error.innerText = `Please add a shoutout for ${selectedPerson.value}`;
+  } else {
+    const shoutout = document.createElement(`li`);
+    shoutout.innerHTML = `<strong>${selectedPerson.value}</strong>, ${inputShoutout.value}`;
+    ul.append(shoutout);
+    form.reset();
+  }
+});
+
+inputShoutout.addEventListener(`input`, () => {
+  error.innerHTML = ``;
 });

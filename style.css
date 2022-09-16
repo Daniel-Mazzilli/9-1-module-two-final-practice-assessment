@@ -33,3 +33,8 @@ hr {
 ul {
   list-style: none;
 }
+
+.message {
+  font-size: 13px;
+  color: red;
+}
