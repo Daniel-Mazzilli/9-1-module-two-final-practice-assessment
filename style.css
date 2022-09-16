@@ -29,3 +29,7 @@ hr {
 #add-shoutout {
   font-style: italic;
 }
+
+ul {
+  list-style: none;
+}

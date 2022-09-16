@@ -5,11 +5,15 @@ const getPeople = `/people`;
 // Variables
 let allPeopleData;
 let personIndex;
+let searchName;
 
 // DOM Elements
 const listPeople = document.querySelector(`#list`);
 const selectedPerson = document.querySelector(`select`);
 const infoSec = document.querySelector(`#info`);
+const form = document.querySelector(`form`);
+const inputShoutout = document.querySelector(`#shoutout`);
+const ul = document.querySelector(`ul`);
 
 // Fetch
 fetch(baseURL + getPeople)
@@ -25,9 +29,9 @@ fetch(baseURL + getPeople)
   })
   .catch((err) => console.log(err));
 
-// Event Listener
+// Event Listeners
 selectedPerson.addEventListener(`change`, () => {
-  const searchName = selectedPerson.value;
+  searchName = selectedPerson.value;
   infoSec.innerHTML = ``;
 
   const infoName = document.createElement(`h4`);
@@ -46,4 +50,13 @@ selectedPerson.addEventListener(`change`, () => {
   });
 
   infoSec.append(infoName, pAge, pEye, pHair);
+});
+
+form.addEventListener(`submit`, (event) => {
+  event.preventDefault();
+  console.log(inputShoutout.value);
+  const shoutout = document.createElement(`li`);
+  shoutout.innerHTML = `<strong>${searchName}</strong>, ${inputShoutout.value}`;
+  ul.append(shoutout);
+  form.reset();
 });
