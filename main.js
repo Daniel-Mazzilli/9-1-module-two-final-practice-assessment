@@ -13,6 +13,7 @@ const infoSec = document.querySelector(`#info`);
 const form = document.querySelector(`form`);
 const inputShoutout = document.querySelector(`#shoutout`);
 const ul = document.querySelector(`ul`);
+const shoutoutsButton = document.querySelector(`#reset-shoutouts`);
 
 // Error Message
 const error = document.createElement(`p`);
@@ -67,6 +68,7 @@ form.addEventListener(`submit`, (event) => {
     const shoutout = document.createElement(`li`);
     shoutout.innerHTML = `<strong>${selectedPerson.value}</strong>, ${inputShoutout.value}`;
     ul.append(shoutout);
+    shoutoutsButton.style.display = `block`;
     form.reset();
   }
 });
@@ -74,3 +76,8 @@ form.addEventListener(`submit`, (event) => {
 inputShoutout.addEventListener(`input`, () => {
   error.innerHTML = ``;
 });
+
+shoutoutsButton.addEventListener(`click`, () => {
+    ul.innerHTML = ``;
+    shoutoutsButton.style.display = `none`;
+})
