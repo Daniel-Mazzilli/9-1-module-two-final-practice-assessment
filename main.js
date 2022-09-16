@@ -4,6 +4,7 @@ const getPeople = `/people`;
 
 // Variables
 let allPeopleData;
+let personIndex;
 
 // DOM Elements
 const listPeople = document.querySelector(`#list`);
@@ -14,7 +15,6 @@ const infoSec = document.querySelector(`#info`);
 fetch(baseURL + getPeople)
   .then((res) => res.json())
   .then((resJson) => {
-    console.log(resJson);
     allPeopleData = resJson;
     resJson.forEach((el) => {
       const character = document.createElement(`option`);
@@ -25,10 +25,25 @@ fetch(baseURL + getPeople)
   })
   .catch((err) => console.log(err));
 
+// Event Listener
 selectedPerson.addEventListener(`change`, () => {
-  console.log(selectedPerson.value);
+  const searchName = selectedPerson.value;
   infoSec.innerHTML = ``;
+
   const infoName = document.createElement(`h4`);
-  infoName.innerText = selectedPerson.value;
-  infoSec.append(infoName);
+  infoName.innerText = `Name: ` + searchName;
+
+  const pAge = document.createElement(`p`);
+  const pEye = document.createElement(`p`);
+  const pHair = document.createElement(`p`);
+
+  allPeopleData.forEach((el) => {
+    if (el[`name`] === searchName) {
+      pAge.innerText = `Age: ` + el[`age`];
+      pEye.innerText = `Eye: ` + el[`eye_color`];
+      pHair.innerText = `Hair: ` + el[`hair_color`];
+    }
+  });
+
+  infoSec.append(infoName, pAge, pEye, pHair);
 });
