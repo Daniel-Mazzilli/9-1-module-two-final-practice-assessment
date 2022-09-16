@@ -1,0 +1,31 @@
+body {
+  background-color: lightskyblue;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  height: 150px;
+  width: 100%;
+  background-color: #000000;
+  color: RGB(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+hr {
+  width: 50%;
+}
+
+#add-shoutout {
+  font-style: italic;
+}
