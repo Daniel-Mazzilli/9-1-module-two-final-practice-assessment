@@ -1,10 +1,8 @@
 // URL
-const baseURL = `https://ghibliapi.herokuapp.com`;
-const getPeople = `/people`;
+const baseURL = `https://ghibliapi.herokuapp.com/people`;
 
 // Variables
 let allPeopleData;
-// let personIndex;
 
 // DOM Elements
 const listPeople = document.querySelector(`#list`);
@@ -21,7 +19,7 @@ error.classList.add(`message`);
 form.append(error);
 
 // Fetch
-fetch(baseURL + getPeople)
+fetch(baseURL)
   .then((res) => res.json())
   .then((resJson) => {
     allPeopleData = resJson;
@@ -41,7 +39,6 @@ selectedPerson.addEventListener(`change`, () => {
 
   const infoName = document.createElement(`h4`);
   infoName.innerText = `Name: ` + selectedPerson.value;
-
   const pAge = document.createElement(`p`);
   const pEye = document.createElement(`p`);
   const pHair = document.createElement(`p`);
@@ -49,19 +46,9 @@ selectedPerson.addEventListener(`change`, () => {
   const personData = allPeopleData.find(
     (el) => el.name === selectedPerson.value
   );
-
   pAge.innerText = `Age: ` + personData[`age`];
   pEye.innerText = `Eye: ` + personData[`eye_color`];
   pHair.innerText = `Hair: ` + personData[`hair_color`];
-
-  // allPeopleData.forEach((el) => {
-  //   if (el[`name`] === selectedPerson.value) {
-  //     pAge.innerText = `Age: ` + el[`age`];
-  //     pEye.innerText = `Eye: ` + el[`eye_color`];
-  //     pHair.innerText = `Hair: ` + el[`hair_color`];
-  //   }
-  // });
-
   infoSec.append(infoName, pAge, pEye, pHair);
 });
 
