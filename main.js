@@ -4,7 +4,7 @@ const getPeople = `/people`;
 
 // Variables
 let allPeopleData;
-let personIndex;
+// let personIndex;
 
 // DOM Elements
 const listPeople = document.querySelector(`#list`);
@@ -46,13 +46,21 @@ selectedPerson.addEventListener(`change`, () => {
   const pEye = document.createElement(`p`);
   const pHair = document.createElement(`p`);
 
-  allPeopleData.forEach((el) => {
-    if (el[`name`] === selectedPerson.value) {
-      pAge.innerText = `Age: ` + el[`age`];
-      pEye.innerText = `Eye: ` + el[`eye_color`];
-      pHair.innerText = `Hair: ` + el[`hair_color`];
-    }
-  });
+  const personData = allPeopleData.find(
+    (el) => el.name === selectedPerson.value
+  );
+
+  pAge.innerText = `Age: ` + personData[`age`];
+  pEye.innerText = `Eye: ` + personData[`eye_color`];
+  pHair.innerText = `Hair: ` + personData[`hair_color`];
+
+  // allPeopleData.forEach((el) => {
+  //   if (el[`name`] === selectedPerson.value) {
+  //     pAge.innerText = `Age: ` + el[`age`];
+  //     pEye.innerText = `Eye: ` + el[`eye_color`];
+  //     pHair.innerText = `Hair: ` + el[`hair_color`];
+  //   }
+  // });
 
   infoSec.append(infoName, pAge, pEye, pHair);
 });
@@ -78,6 +86,6 @@ inputShoutout.addEventListener(`input`, () => {
 });
 
 shoutoutsButton.addEventListener(`click`, () => {
-    ul.innerHTML = ``;
-    shoutoutsButton.style.display = `none`;
-})
+  ul.innerHTML = ``;
+  shoutoutsButton.style.display = `none`;
+});
